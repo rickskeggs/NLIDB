@@ -1,0 +1,24 @@
+## Natural Language Toolkit: accountno.fcfg
+##
+## Deliberately naive string-based grammar for 
+## deriving SQL queries from English
+## 
+## Author: Richard Skeggs
+## URL: <http://nltk.sourceforge.net>
+## For license information, see LICENSE.TXT
+% start S
+S[SEM=(?np + WHERE + ?vp)] -> NP[SEM=?np] VP[SEM=?vp]
+
+VP[SEM=(?v + ?pp)] ->IV[SEM=?v] PP[SEM=?pp]
+VP[SEM=(?v + ?ap)] ->IV[SEM=?v] AP[SEM=?ap]
+NP[SEM=(?det + ?n)] ->Det[SEM=?det] N[SEM=?n]
+PP[SEM=(?p + ?np)] ->P[SEM=?p] VP[SEM=?np]
+AP[SEM=?pp] ->A[SEM=?a] PP[SEM=?pp]
+
+Det[SEM='Select'] -> 'Which' | 'Who' | 'What'| 'Where'
+N[SEM='* from phd_firstload_s' ] -> 'postcode' | 'Postcode'
+
+
+IV[SEM=''] -> 'are'
+A[SEM=''] -> 'located'
+P[SEM=''] -> 'in'
